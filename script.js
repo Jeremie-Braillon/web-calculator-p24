@@ -10,36 +10,44 @@
 //Etape 6 : Réaliser les calculs avec les nombres à virgule
 
 
-//Etape 1 :
+
 
 const calculator = document.querySelector('.calculator')
 const keys = calculator.querySelector('.calculator__keys')
+const display = calculator.querySelector('.calculator__display')
+let calcul = null;
+let resultat = 0;
+let lastButtonClass=null;
 
 keys.addEventListener('click', e => {
     const key = e.target
     const action = key.dataset.action
+    const keyContent = key.textContent
+    const displayedNum = display.textContent
+    const buttonclass = key.class
+    
     if (key.matches('button')) {
-        //console.log('button clicked', e.target.innerText)
-        if (!action){
-            console.log('number key!')
+        if (!action){  //Clique sur une case numéro
+            if (lastButtonClasslass === "key--operator"){
+                display.textContent = '0'
+            }
+
+            if (displayedNum === '0') {
+                display.textContent = keyContent
+            } else {
+                display.textContent = display.textContent + keyContent
+            }
+
+        } else if(buttonclass === "key--operator"){
+
+            resultat = parseInt(displayedNum)
+            display.textContent += keyContent
+            calcul = action
+
         }
-        if (action === 'add' || action === 'subtract' || action === 'multiply' || action === 'divide'){
-            console.log('operator key!')
-        }
-        if (action === 'decimal'){
-            console.log('decimal key!')
-        }   
-        if (action === 'clear'){
-            console.log('clear key!')
-        }
-        if (action === 'calculate'){
-            console.log('equal key!')
-        }
-  }
+        lastButtonClass=buttonclass
+
+
+
+    }
 })
-
-
-//Etape 2 :
-
-const display = document.querySelector('.calculator__display')
-
